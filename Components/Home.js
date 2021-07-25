@@ -311,7 +311,8 @@ const styles = StyleSheet.create({
     width:45,
     height:45,
     position:'absolute',
-    left:20
+    right:40,
+    top:100
   }
 
 })
