@@ -6,7 +6,10 @@ import { Feather } from '@expo/vector-icons';
 import data from './Data'
 import View2 from './View2';
 import View1 from './View1';
+import { useNavigation } from '@react-navigation/native';
 const Details = () => {
+  const navigaton=useNavigation();
+
   const Y = useSharedValue(0);
   const Y1 = useSharedValue(0);
   const Y2 = useSharedValue(0);
@@ -112,6 +115,9 @@ const Details = () => {
      
     }
   })
+  const onPress=()=>{
+    navigaton.goBack()
+  }
   const renderItem=({item,index})=>{
     return(
       <View style={{alignItems:'center',padding:10}}>
@@ -127,13 +133,13 @@ const Details = () => {
     <View>
       <Animated.View style={[styles.Header,HeaderStyle]}>
         <View style={styles.HeaderStyles}>
-        <Feather style={styles.IconStyle} name="arrow-left" size={28} color="white" />
+        <Feather style={styles.IconStyle} name="arrow-left" onPress={onPress} size={28} color="white" />
         <Text style={styles.HeaderText}>Month of Illustrations</Text>
         </View>
    
       </Animated.View>
      <Image
-     source={{uri:'https://cdn.pixabay.com/photo/2016/10/27/10/59/woman-1774020_960_720.jpg'}}
+     source={{uri:'https://res.cloudinary.com/dn29xlaeh/image/upload/q_50,h_576/v1/beatgig-prod/g2gs4co6gmgud38lj7zl'}}
      style={styles.Image}
      />
      <View>

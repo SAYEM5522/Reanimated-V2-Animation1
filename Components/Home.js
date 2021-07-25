@@ -1,10 +1,11 @@
 import React from 'react'
-import { StyleSheet, View,Text,StatusBar,FlatList,Image,Pressable } from 'react-native'
+import { StyleSheet, View,Text,StatusBar,FlatList,Image,Pressable, TextInput } from 'react-native'
 import Animated,{  Extrapolate, interpolate, runOnJS, useAnimatedGestureHandler, useAnimatedStyle, useSharedValue, withSpring, withTiming } from 'react-native-reanimated';
 import { PanGestureHandler } from 'react-native-gesture-handler';
 import { useNavigation } from '@react-navigation/native';
 import { AntDesign } from '@expo/vector-icons';
-import { useEffect } from 'react';
+import { EvilIcons } from '@expo/vector-icons';
+
 import data from './Data'
 const Home = () => {
   
@@ -119,17 +120,21 @@ const Home = () => {
       top:interpolate(Y.value,[0,-300],[0,27],Extrapolate.CLAMP),
     }
   });
+  const OpacityStyle=useAnimatedStyle(()=>{
+    return{
+      opacity:interpolate(Y.value,[0,-300],[0,1],Extrapolate.CLAMP),
+    }
+  });
+  const onPress=()=>{
+    navigaton.push("Details")
+  }
 
   const renderItem=({item,index})=>{
 
    
     return(
       <View style={{top:50,alignItems:'center',padding:10}}>
-        <Pressable onPress={()=>
-      navigaton.push("Details",{
-        itemId:item.id,
-       
-      })} >
+        <Pressable onPress={onPress} >
         <Image
         
         source={{uri:item.image}}
@@ -149,6 +154,13 @@ const Home = () => {
       <Text numberOfLines={2} style={styles.Caption}>
         Search For Your Next Challenge
       </Text>
+      <View>
+        <TextInput style={styles.TxtInput} 
+        placeholder="Enter topic,trainer, or keywords"
+        placeholderTextColor="white"
+        />
+        <EvilIcons name="search" style={styles.SearchIcon} size={24} color="black" />
+      </View>
       </View>
       <PanGestureHandler
        activeOffsetX={[-30, 30]}
@@ -158,14 +170,14 @@ const Home = () => {
      
       <AnimatedIcon style={[styles.Icon,IconStyle]} name="arrowleft" size={24} color="white" />
       <AnimatedText style={[styles.HeaderText,TextStyle]}>Top Technology </AnimatedText>
-      <View>
+      <Animated.View style={OpacityStyle}>
       <FlatList 
       data={data}
       keyExtractor={(item)=>item.id}
       renderItem={renderItem}
       showsVerticalScrollIndicator={false}
     />
-      </View>
+      </Animated.View>
  
   
     </Animated.View>
@@ -280,6 +292,26 @@ const styles = StyleSheet.create({
     fontWeight:'bold',
     lineHeight:45,
     
+  },
+  TxtInput:{
+    height:47,
+    width:330,
+    alignSelf:'center',
+    backgroundColor:'rgba(0,0,0,0.3)',
+    top:100,
+    borderRadius:40,
+    padding:12,
+    position:'relative'
+    
+  },
+  SearchIcon:{
+    backgroundColor:'white',
+    padding:10,
+    borderRadius:25,
+    width:45,
+    height:45,
+    position:'absolute',
+    left:20
   }
 
 })
