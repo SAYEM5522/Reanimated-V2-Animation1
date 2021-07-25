@@ -7,6 +7,7 @@ import { AntDesign } from '@expo/vector-icons';
 import { EvilIcons } from '@expo/vector-icons';
 
 import data from './Data'
+import { memo } from 'react';
 const Home = () => {
   
   const Y = useSharedValue(0);
@@ -80,9 +81,10 @@ const Home = () => {
         }  
     },
   });
+  const inputrange=[-100,-400];
   const animatedStyle = useAnimatedStyle(() => {
     return {
-      width:interpolate(Y.value,[-100,-400],[350,420],Extrapolate.CLAMP),
+      width:interpolate(Y.value,inputrange,[350,420],Extrapolate.CLAMP),
       transform: [
         {
           translateY: Y.value,
@@ -92,7 +94,7 @@ const Home = () => {
   });
   const animatedStyle2 = useAnimatedStyle(() => {
     return {
-      width:interpolate(Y1.value,[-100,-400],[350,420],Extrapolate.CLAMP),
+      width:interpolate(Y1.value,inputrange,[350,420],Extrapolate.CLAMP),
       transform: [
         {
           translateY: Y1.value,
@@ -102,7 +104,7 @@ const Home = () => {
   });
   const animatedStyle3 = useAnimatedStyle(() => {
     return {
-      width:interpolate(Y2.value,[-100,-400],[350,420],Extrapolate.CLAMP),
+      width:interpolate(Y2.value,inputrange,[350,420],Extrapolate.CLAMP),
       transform: [
         {
           translateY: Y2.value,
@@ -110,25 +112,35 @@ const Home = () => {
       ],
     };
   });
+  const styleRange=[0,-300]
   const IconStyle=useAnimatedStyle(()=>{
     return{
-      left:interpolate(Y.value,[0,-300],[-40,10],Extrapolate.CLAMP)
+      left:interpolate(Y.value,styleRange,[-40,10],Extrapolate.CLAMP)
     }
   });
   const TextStyle=useAnimatedStyle(()=>{
     return{
-      top:interpolate(Y.value,[0,-300],[0,27],Extrapolate.CLAMP),
+      top:interpolate(Y.value,styleRange,[0,27],Extrapolate.CLAMP),
     }
   });
   const OpacityStyle=useAnimatedStyle(()=>{
     return{
-      opacity:interpolate(Y.value,[0,-300],[0,1],Extrapolate.CLAMP),
+      opacity:interpolate(Y.value,styleRange,[0,1],Extrapolate.CLAMP),
     }
   });
   const onPress=()=>{
+   
     navigaton.push("Details")
   }
-
+  const renderItem2=({item})=>{
+    return(
+      <View style={styles.Container}>
+        <Text style={styles.BannerText}>
+        {item.name}
+        </Text>
+      </View>
+    )
+  }
   const renderItem=({item,index})=>{
 
    
@@ -161,6 +173,14 @@ const Home = () => {
         />
         <EvilIcons name="search" style={styles.SearchIcon} size={24} color="black" />
       </View>
+        <FlatList
+        data={data}
+        renderItem={renderItem2}
+        keyExtractor={(item)=>item.id}
+        horizontal
+        showsHorizontalScrollIndicator={false}
+
+        />
       </View>
       <PanGestureHandler
        activeOffsetX={[-30, 30]}
@@ -184,13 +204,13 @@ const Home = () => {
     </PanGestureHandler>
     <PanGestureHandler onGestureEvent={gestureHandler2}>
     <Animated.View style={[styles.View2,animatedStyle2]}>
-    <Text style={styles.HeaderText2}>Top Technology </Text>
+    <Text style={styles.HeaderText2}>Popular Coaches </Text>
    
     </Animated.View>
     </PanGestureHandler>
     <PanGestureHandler onGestureEvent={gestureHandler3}>
     <Animated.View  style={[styles.View3,animatedStyle3]}>
-    <Text style={styles.HeaderText3}>Top Technology </Text>
+    <Text style={styles.HeaderText3}>For You</Text>
 
     </Animated.View>
     </PanGestureHandler>
@@ -198,7 +218,7 @@ const Home = () => {
   )
 }
 
-export default Home
+export default memo(Home)
 
 const styles = StyleSheet.create({
   View1:{
@@ -313,6 +333,17 @@ const styles = StyleSheet.create({
     position:'absolute',
     right:40,
     top:100
+  },
+  Container:{
+      padding:7,
+      top:120,
+      height:30,
+      left:45
+  },
+  BannerText:{
+    backgroundColor:'white',
+    padding:7,
+    borderRadius:20
   }
 
 })

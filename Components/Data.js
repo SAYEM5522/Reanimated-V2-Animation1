@@ -9,14 +9,14 @@ export default  data=[
   {
     id:"2",
     image:"https://res.cloudinary.com/dn29xlaeh/image/upload/q_75,w_300/v1/beatgig-updated/eexyxfk0deprtvhwwfo2",
-    name:"Art",
+    name:"Sports",
     price:"$1000",
     des:"309 degine"
   },
   {
     id:"3",
     image:"https://res.cloudinary.com/dn29xlaeh/image/upload/q_50,h_576/v1/beatgig-prod/g2gs4co6gmgud38lj7zl",
-    name:"Entertainment",
+    name:"Beautiful",
     price:"$1000",
     des:"309 degine"
   },
@@ -32,7 +32,7 @@ export default  data=[
     id:"5",
     image:"https://res.cloudinary.com/dn29xlaeh/image/upload/q_75,w_300/v1/beatgig-updated/lwm47fymmf9el0jhsbxg",
    
-    name:"News",
+    name:"NewsFeed",
     price:"$1000",
     des:"309 degine"
   },
